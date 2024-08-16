@@ -1,10 +1,11 @@
 import type { StorybookConfig } from '@storybook/react-webpack5';
+import { merge } from 'webpack-merge';
+import customWebpackConfig from './webpack.config';
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-webpack5-compiler-swc',
-    '@storybook/addon-onboarding',
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@chromatic-com/storybook',
@@ -13,6 +14,18 @@ const config: StorybookConfig = {
   framework: {
     name: '@storybook/react-webpack5',
     options: {},
+  },
+  swc: () => ({
+    jsc: {
+      transform: {
+        react: {
+          runtime: 'automatic',
+        },
+      },
+    },
+  }),
+  webpackFinal: (config) => {
+    return merge(config, customWebpackConfig);
   },
 };
 export default config;

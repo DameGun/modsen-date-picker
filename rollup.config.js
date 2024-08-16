@@ -1,11 +1,11 @@
 import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
+import image from '@rollup/plugin-image';
 import resolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import dts from 'rollup-plugin-dts';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import postcss from 'rollup-plugin-postcss';
 import packageJson from './package.json';
 
 export default [
@@ -25,19 +25,13 @@ export default [
     ],
     plugins: [
       peerDepsExternal(),
-      resolve(),
+      resolve({
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      }),
       commonjs(),
-      typescript({ tsconfig: './tsconfig.json' }),
-      babel({
-        babelHelpers: 'bundled',
-        exclude: 'node_modules/**',
-      }),
-      postcss({
-        extensions: ['.css'],
-        minimize: true,
-        sourceMap: true,
-        modules: true,
-      }),
+      typescript(),
+      babel(),
+      image(),
       terser(),
     ],
     external: ['react', 'react-dom'],
@@ -46,6 +40,5 @@ export default [
     input: 'src/index.ts',
     output: [{ file: 'dist/types.d.ts', format: 'es' }],
     plugins: [dts.default()],
-    external: [/\.css$/],
   },
 ];
