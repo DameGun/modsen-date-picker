@@ -1,5 +1,5 @@
 {
-  "name": "modsen-date-picker",
+  "name": "modsen-calendar-picker",
   "version": "1.0.0",
   "type": "module",
   "main": "dist/cjs/index.js",

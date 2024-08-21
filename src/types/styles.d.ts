@@ -10,6 +10,7 @@ declare module 'styled-components' {
       gray: string;
       lightGray: string;
       darkGray: string;
+      red: string;
     };
     font: {
       size: {

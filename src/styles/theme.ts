@@ -9,6 +9,7 @@ export const baseTheme: DefaultTheme = {
     gray: '#F1F1F1',
     lightGray: '#DDDDDD',
     darkGray: '#AAAAAA',
+    red: '#AA0000',
   },
   font: {
     size: {

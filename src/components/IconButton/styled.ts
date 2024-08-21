@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
-const StyledImage = styled.img`
+const StyledImage = styled.img<{ $isDisabled?: boolean }>`
   height: ${(props) => props.theme.constants.size.sm};
   width: ${(props) => props.theme.constants.size.sm};
-  cursor: pointer;
+
+  visibility: ${(props) => props.$isDisabled && 'hidden'};
 `;
 
 export default StyledImage;

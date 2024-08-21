@@ -20,7 +20,7 @@ export default [
       'simple-import-sort/imports': [
         'error',
         {
-          groups: [['^react', '^@?\\w', '^\\./', '^\\.\\.']],
+          groups: [['^react', '^@?\\w', '^@/?\\w', '^\\./', '^\\.\\.']],
         },
       ],
       'simple-import-sort/exports': 'error',
@@ -30,6 +30,7 @@ export default [
     files: ['**/*.{jsx,tsx}'],
     rules: {
       'react/react-in-jsx-scope': 'off',
+      'react/prop-types': 'off',
     },
   },
   {

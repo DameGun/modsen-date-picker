@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-
 import { baseContainerStyles } from '@/styles/base';
 
 export const InputWrapper = styled.div`
   ${baseContainerStyles}
 
-  padding: ${(props) => props.theme.constants.padding.sm + ' ' + props.theme.constants.padding.lg};
+  padding: ${(props) => props.theme.constants.padding.sm} ${(props) =>
+    props.theme.constants.padding.lg};
   display: flex;
   flex-direction: row;
   align-items: center;
