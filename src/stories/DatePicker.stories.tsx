@@ -27,6 +27,9 @@ const meta = {
     withTodoList: {
       control: 'boolean',
     },
+    withRangePicker: {
+      control: 'boolean',
+    },
   },
   parameters: {
     type: CalendarType.Date,
@@ -43,10 +46,7 @@ export const Base: Story = {
     type: CalendarType.Date,
     weekStartDay: WeekStartDay.Monday,
     chooseWeekends: false,
-    minDate: undefined,
-    maxDate: undefined,
-    holidaysCountry: 'Belarus',
-    onChange: (date) => console.log('User will get this date:', date),
-    withTodoList: true,
+    withTodoList: false,
+    withRangePicker: true,
   },
 };

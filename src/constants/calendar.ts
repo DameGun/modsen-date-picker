@@ -4,11 +4,6 @@ enum CalendarType {
   Date = 'Date',
 }
 
-enum ChangeActionType {
-  Click = 'Click',
-  Input = 'Input',
-}
-
 enum WeekStartDay {
   Monday = 'Monday',
   Sunday = 'Sunday',
@@ -16,4 +11,4 @@ enum WeekStartDay {
 
 const weekDays: string[] = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
 
-export { CalendarType, ChangeActionType, weekDays, WeekStartDay };
+export { CalendarType, weekDays, WeekStartDay };

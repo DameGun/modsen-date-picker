@@ -62,3 +62,10 @@ export function checkYearPickerInput(value: string) {
 
   return input;
 }
+
+export function parseMonthPickerInput(value: string) {
+  const [month, year] = value.split('/');
+  return new Date(+year, +month - 1, 1);
+}
+
+export const parseYearPickerInput = (value: string) => new Date(+value, 1, 1);

@@ -1,23 +1,19 @@
 import { ComponentType, useContext, useMemo } from 'react';
-import { CalendarType, ChangeActionType } from '@/constants/calendar';
+import { CalendarType } from '@/constants/calendar';
+import { PlaceholderMaskType } from '@/constants/input';
 import { CALENDAR_LIST_SECONDARY_LENGTH } from '@/constants/layout';
 import type { CalendarLimitations, CalendarProps } from '@/types/calendar';
 import type { YearPickerProps } from '@/types/yearPicker';
 import { getCalendarHeaderTextYearRange } from '@/utils/calendarHeader';
 import { getCalendarYears } from '@/utils/calendarYears';
-import { checkYearPickerInput } from '@/utils/inputMask';
+import { checkYearPickerInput, parseYearPickerInput } from '@/utils/inputMask';
 import { DatePickerContext } from '../context/datePickerContext';
 
 export default function withYearPicker(
   WrappedComponent: ComponentType<CalendarProps & CalendarLimitations>
 ) {
-  const YearPicker = ({
-    type = CalendarType.Year,
-    onChange,
-    minDate,
-    maxDate,
-  }: YearPickerProps) => {
-    const { currentDate, setCurrentDate, setInputValue } = useContext(DatePickerContext);
+  const YearPicker = ({ type = CalendarType.Year, minDate, maxDate }: YearPickerProps) => {
+    const { currentDate, setCurrentDate, handleChange } = useContext(DatePickerContext);
     const calendarYears = useMemo(
       () => getCalendarYears(currentDate),
       [currentDate, minDate, maxDate]
@@ -26,6 +22,8 @@ export default function withYearPicker(
       () => getCalendarHeaderTextYearRange(calendarYears),
       [calendarYears]
     );
+
+    console.log(calendarYears);
 
     function handlePreviousYearRange() {
       const newDate = new Date(currentDate);
@@ -41,20 +39,18 @@ export default function withYearPicker(
       setCurrentDate(newDate);
     }
 
-    function handleChange(newDate: string, action: ChangeActionType) {
-      let formattedInput = newDate;
+    const handleInput = (newDate: string) => {
+      const formattedInput = checkYearPickerInput(newDate);
+      const formattedInputAsDate = parseYearPickerInput(formattedInput);
 
-      if (action === ChangeActionType.Input) {
-        formattedInput = checkYearPickerInput(newDate);
-      } else {
-        formattedInput = new Date(newDate).getFullYear().toString();
-      }
+      handleChange(formattedInputAsDate, formattedInput);
+    };
 
-      setCurrentDate(
-        formattedInput ? new Date(+formattedInput, currentDate.getMonth(), 1) : new Date()
-      );
-      setInputValue(formattedInput);
-      if (onChange) onChange(newDate);
+    function handleClick(newDate: string) {
+      const formattedInput = new Date(newDate).getFullYear().toString();
+      const formattedInputAsDate = parseYearPickerInput(formattedInput);
+
+      handleChange(formattedInputAsDate, formattedInput);
     }
 
     return (
@@ -64,9 +60,11 @@ export default function withYearPicker(
         headerText={headerText}
         onPrevious={handlePreviousYearRange}
         onNext={handleNextYearRange}
-        onChange={handleChange}
+        onInputChange={handleInput}
+        onItemClick={handleClick}
         minDate={minDate}
         maxDate={maxDate}
+        placeholderMask={PlaceholderMaskType[type]}
       />
     );
   };

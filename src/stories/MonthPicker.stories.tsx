@@ -12,6 +12,9 @@ const meta = {
     maxDate: {
       control: 'date',
     },
+    withRangePicker: {
+      control: 'boolean',
+    },
   },
   parameters: {
     type: CalendarType.Month,
@@ -28,6 +31,6 @@ export const Base: Story = {
     type: CalendarType.Month,
     minDate: undefined,
     maxDate: undefined,
-    onChange: (date) => console.log('User will get this date:', date),
+    withRangePicker: true,
   },
 };

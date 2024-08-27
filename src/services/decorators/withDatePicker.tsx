@@ -1,7 +1,8 @@
 import { ComponentType, useContext, useMemo } from 'react';
-import WeekDaysHeader from '@/components/WeekDaysHeader';
-import { CalendarType, ChangeActionType } from '@/constants/calendar';
-import { CalendarLimitations, CalendarProps } from '@/types/calendar';
+import { WeekDaysHeader } from '@/components';
+import { CalendarType } from '@/constants/calendar';
+import { PlaceholderMaskType } from '@/constants/input';
+import type { CalendarLimitations, CalendarProps } from '@/types/calendar';
 import type { DatePickerProps } from '@/types/datePicker';
 import type { HolidaysProps } from '@/types/holidays';
 import { getCalendarDays } from '@/utils/calendarDays';
@@ -17,11 +18,10 @@ export default function withDatePicker(
     weekStartDay,
     minDate,
     maxDate,
-    onChange,
     chooseWeekends,
     ...props
   }: DatePickerProps) => {
-    const { currentDate, setInputValue, setCurrentDate } = useContext(DatePickerContext);
+    const { currentDate, handleChange, setCurrentDate } = useContext(DatePickerContext);
     const calendarDays = useMemo(
       () => getCalendarDays(currentDate, weekStartDay, chooseWeekends),
       [currentDate, weekStartDay, minDate, maxDate]
@@ -42,16 +42,17 @@ export default function withDatePicker(
       setCurrentDate(newDate);
     }
 
-    function handleChange(newDate: string, actionType: ChangeActionType) {
-      let formattedInput = newDate;
+    const handleInput = (newDate: string) => {
+      const formattedInput = checkDatePickerInput(newDate);
+      const formattedInputAsDate = new Date(formattedInput);
 
-      if (actionType === ChangeActionType.Input) {
-        formattedInput = checkDatePickerInput(newDate);
-      }
+      handleChange(formattedInputAsDate, formattedInput);
+    };
 
-      setInputValue(formattedInput);
-      setCurrentDate(new Date(formattedInput));
-      if (onChange) onChange(formattedInput);
+    function handleClick(newDate: string) {
+      const formattedInputAsDate = new Date(newDate);
+
+      handleChange(formattedInputAsDate, newDate);
     }
 
     return (
@@ -62,10 +63,12 @@ export default function withDatePicker(
         onNext={handleNextMonth}
         onPrevious={handlePreviousMonth}
         items={calendarDays}
-        onChange={handleChange}
+        onInputChange={handleInput}
+        onItemClick={handleClick}
         headerText={headerText}
         minDate={minDate}
         maxDate={maxDate}
+        placeholderMask={PlaceholderMaskType[type]}
       />
     );
   };

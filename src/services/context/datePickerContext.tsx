@@ -1,6 +1,9 @@
-import { createContext, ReactNode, useState } from 'react';
-import { CalendarType } from '@/constants/calendar';
-import type { DatePickerContextType } from '@/types/datePickerContext';
+import { createContext, useState } from 'react';
+import type { ResultDateType } from '@/types/calendar';
+import type {
+  DatePickerContextProviderProps,
+  DatePickerContextType,
+} from '@/types/datePickerContext';
 import { getInitialDateOnCalendarType } from '@/utils/datePickerContext';
 
 export const DatePickerContext = createContext<DatePickerContextType>({
@@ -8,15 +11,14 @@ export const DatePickerContext = createContext<DatePickerContextType>({
   setCurrentDate: () => console.log('Method not implemented'),
   inputValue: new Date().toLocaleDateString('en-US'),
   setInputValue: () => console.log('Method not implemented'),
+  handleChange: () => console.log('Method not implemented'),
 });
 
 export function DatePickerContextProvider({
   children,
   type,
-}: {
-  children: ReactNode;
-  type: CalendarType;
-}) {
+  onChange,
+}: DatePickerContextProviderProps) {
   const [currentDate, setCurrentDate] = useState<Date>(getInitialDateOnCalendarType(type));
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -29,12 +31,19 @@ export function DatePickerContextProvider({
     setInputValue(newDate);
   }
 
+  const handleChange = (newDate: Date, formattedDate: string, userValue?: ResultDateType) => {
+    handleInputValue(formattedDate);
+    handleDate(newDate);
+    onChange?.(userValue ?? newDate);
+  };
+
   return (
     <DatePickerContext.Provider
       value={{
         inputValue,
         setInputValue: handleInputValue,
         currentDate,
+        handleChange,
         setCurrentDate: handleDate,
       }}
     >
