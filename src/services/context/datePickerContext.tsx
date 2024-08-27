@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useState } from 'react';
 import { CalendarType } from '@/constants/calendar';
-import { DatePickerContextType } from '@/types/datePickerContext';
+import type { DatePickerContextType } from '@/types/datePickerContext';
 import { getInitialDateOnCalendarType } from '@/utils/datePickerContext';
 
 export const DatePickerContext = createContext<DatePickerContextType>({

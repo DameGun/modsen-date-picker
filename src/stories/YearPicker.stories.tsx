@@ -1,16 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { CalendarType } from '@/constants/calendar';
 import DatePickerCreator from '@/services/datePickerCreator';
+import { DatePickerCreatorTemplate } from '@/utils/storybook';
 
 const meta = {
-  component: DatePickerCreator.renderYearPicker,
-  render: ({ minDate, maxDate, ...args }) => (
-    <DatePickerCreator.renderYearPicker
-      minDate={minDate && new Date(minDate)}
-      maxDate={maxDate && new Date(maxDate)}
-      {...args}
-    />
-  ),
+  component: DatePickerCreator,
   argTypes: {
     minDate: {
       control: 'date',
@@ -22,13 +16,14 @@ const meta = {
   parameters: {
     type: CalendarType.Year,
   },
-} satisfies Meta<typeof DatePickerCreator.renderYearPicker>;
+} satisfies Meta<typeof DatePickerCreator>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
 export const Base: Story = {
+  render: DatePickerCreatorTemplate,
   args: {
     type: CalendarType.Year,
     minDate: undefined,

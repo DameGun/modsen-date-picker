@@ -1,5 +1,5 @@
 import { CalendarCountries, HOLIDAYS_API_URL } from '@/constants/holidays';
-import { HolidayItem } from '@/types/holidays';
+import type { HolidayItem } from '@/types/holidays';
 
 export async function fetchHolidaysByCountryCode(
   countryCode: keyof typeof CalendarCountries,

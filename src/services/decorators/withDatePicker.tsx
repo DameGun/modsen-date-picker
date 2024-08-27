@@ -3,7 +3,7 @@ import WeekDaysHeader from '@/components/WeekDaysHeader';
 import { CalendarType, ChangeActionType } from '@/constants/calendar';
 import { CalendarLimitations, CalendarProps } from '@/types/calendar';
 import type { DatePickerProps } from '@/types/datePicker';
-import { HolidaysProps } from '@/types/holidays';
+import type { HolidaysProps } from '@/types/holidays';
 import { getCalendarDays } from '@/utils/calendarDays';
 import { getCalendarHeaderText } from '@/utils/calendarHeader';
 import { checkDatePickerInput } from '@/utils/inputMask';

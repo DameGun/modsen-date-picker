@@ -9,6 +9,7 @@ interface WeekHeaderProps {
 interface DatePickerProps extends Calendar, WeekHeaderProps, HolidaysProps, CalendarLimitations {
   type: CalendarType.Date;
   chooseWeekends?: boolean;
+  withTodoList?: boolean;
 }
 
 export type { DatePickerProps, WeekHeaderProps };

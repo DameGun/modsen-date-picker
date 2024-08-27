@@ -10,11 +10,13 @@ type CalendarItemType = {
   value: string;
   isDisabled: boolean;
   holiday?: HolidayItem;
+  todoItemsCount?: number;
 };
 
 interface Calendar {
   type: CalendarType;
   onChange(newDate: string, actionType?: ChangeActionType): void;
+  children?: ReactNode;
 }
 
 interface ServiceCalendarProps {

@@ -41,5 +41,8 @@ export const baseTheme: DefaultTheme = {
       sm: '8px',
     },
     borderWidth: '1px',
+    transitionTime: {
+      md: '0.3s',
+    },
   },
 };

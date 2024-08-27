@@ -10,6 +10,7 @@ export default function Calendar({
   onChange,
   additionalHeader: weeksHeader,
   items,
+  children,
   ...calendarHeaderProps
 }: CalendarProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -44,6 +45,7 @@ export default function Calendar({
         <Input type={type} onFocus={handleOpen} onChange={onChange} />
         {isOpen && (
           <StyledCalendar ref={calendarRef} tabIndex={0}>
+            {children}
             <CalendarHeader {...calendarHeaderProps} />
             {weeksHeader}
             <CalendarItemsList type={type} items={items} onChange={onChange} />

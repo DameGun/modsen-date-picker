@@ -1,8 +1,8 @@
 import { ComponentType, useContext, useMemo } from 'react';
 import { CalendarType, ChangeActionType } from '@/constants/calendar';
 import { CALENDAR_LIST_SECONDARY_LENGTH } from '@/constants/layout';
-import { CalendarLimitations, CalendarProps } from '@/types/calendar';
-import { YearPickerProps } from '@/types/yearPicker';
+import type { CalendarLimitations, CalendarProps } from '@/types/calendar';
+import type { YearPickerProps } from '@/types/yearPicker';
 import { getCalendarHeaderTextYearRange } from '@/utils/calendarHeader';
 import { getCalendarYears } from '@/utils/calendarYears';
 import { checkYearPickerInput } from '@/utils/inputMask';

@@ -1,24 +1,37 @@
 import { Component } from 'react';
 import { Calendar } from '@/components';
 import { CalendarType } from '@/constants/calendar';
-import { CalendarCreatorProps } from '@/types/calendar';
-import { withDatePicker, withHolidays, withMonthPicker, withYearPicker } from './decorators';
-import withMinMaxDate from './decorators/withMinMaxValues';
+import type { CalendarCreatorProps } from '@/types/calendar';
+import {
+  withDatePicker,
+  withHolidays,
+  withMinMaxValues,
+  withMonthPicker,
+  withTodoList,
+  withYearPicker,
+} from './decorators';
 
 export default class DatePickerCreator extends Component<CalendarCreatorProps> {
   constructor(props: CalendarCreatorProps) {
     super(props);
   }
-  public static renderDatePicker = withDatePicker(withHolidays(withMinMaxDate(Calendar)));
+  public static renderDatePicker = withDatePicker(withHolidays(withMinMaxValues(Calendar)));
 
-  public static renderMonthPicker = withMonthPicker(withMinMaxDate(Calendar));
+  public static renderDatePickerWithTodoList = withDatePicker(
+    withHolidays(withMinMaxValues(withTodoList(Calendar)))
+  );
 
-  public static renderYearPicker = withYearPicker(withMinMaxDate(Calendar));
+  public static renderMonthPicker = withMonthPicker(withMinMaxValues(Calendar));
+
+  public static renderYearPicker = withYearPicker(withMinMaxValues(Calendar));
 
   render() {
     switch (this.props.type) {
       case CalendarType.Date: {
-        const DatePicker = DatePickerCreator.renderDatePicker;
+        let DatePicker = DatePickerCreator.renderDatePicker;
+        if (this.props.withTodoList) {
+          DatePicker = DatePickerCreator.renderDatePickerWithTodoList;
+        }
         return <DatePicker {...this.props} />;
       }
       case CalendarType.Month: {

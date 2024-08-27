@@ -6,11 +6,12 @@ interface IconButtonProps {
   icon: string;
   onClick?(e: MouseEvent<HTMLImageElement>): void;
   isDisabled?: boolean;
+  isUnavaliable?: boolean;
 }
 
-export default function IconButton({ icon, onClick, isDisabled }: IconButtonProps) {
+export default function IconButton({ icon, onClick, isDisabled, isUnavaliable }: IconButtonProps) {
   return (
-    <Button $isDisabled={isDisabled}>
+    <Button $isDisabled={isDisabled} $isUnavaliable={isUnavaliable}>
       <StyledImage src={icon} onClick={onClick} $isDisabled={isDisabled} />
     </Button>
   );

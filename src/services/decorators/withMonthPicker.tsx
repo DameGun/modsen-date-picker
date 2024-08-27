@@ -1,7 +1,7 @@
 import { ComponentType, useContext, useMemo } from 'react';
 import { CalendarType, ChangeActionType } from '@/constants/calendar';
-import { CalendarLimitations, CalendarProps } from '@/types/calendar';
-import { MonthPickerProps } from '@/types/monthPicker';
+import type { CalendarLimitations, CalendarProps } from '@/types/calendar';
+import type { MonthPickerProps } from '@/types/monthPicker';
 import { getCalendarHeaderText } from '@/utils/calendarHeader';
 import { getCalendarMonths } from '@/utils/calendarMonths';
 import { checkMonthPickerInput } from '@/utils/inputMask';

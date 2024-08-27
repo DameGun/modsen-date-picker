@@ -42,6 +42,9 @@ declare module 'styled-components' {
         md: string;
       };
       borderWidth: string;
+      transitionTime: {
+        md: string;
+      };
     };
   }
 }

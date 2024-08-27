@@ -9,10 +9,12 @@ export const CalendarWrapper = styled.div`
 export const StyledCalendar = styled.div`
   ${baseContainerStyles}
   width: 100%;
+  height: auto;
+  overflow: hidden;
 
   position: absolute;
   margin-top: ${(props) => props.theme.constants.padding.xs};
-  padding: ${(props) => props.theme.constants.padding.lg} 0;
+  padding: ${(props) => props.theme.constants.padding.md} 0;
 `;
 
 export const CalendarLabel = styled.label`
