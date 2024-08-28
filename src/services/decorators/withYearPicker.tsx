@@ -23,8 +23,6 @@ export default function withYearPicker(
       [calendarYears]
     );
 
-    console.log(calendarYears);
-
     function handlePreviousYearRange() {
       const newDate = new Date(currentDate);
       newDate.setFullYear(currentDate.getFullYear() - CALENDAR_LIST_SECONDARY_LENGTH);

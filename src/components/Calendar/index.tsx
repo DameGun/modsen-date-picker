@@ -13,6 +13,7 @@ export default function Calendar({
   onItemClick,
   onInputChange,
   placeholderMask,
+  theme,
   ...calendarHeaderProps
 }: CalendarProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -41,7 +42,7 @@ export default function Calendar({
   }, []);
 
   return (
-    <ThemeProvider theme={baseTheme}>
+    <ThemeProvider theme={theme ? { ...baseTheme, colors: theme } : baseTheme}>
       <CalendarWrapper>
         <CalendarLabel>Date</CalendarLabel>
         <Input

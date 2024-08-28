@@ -2,11 +2,12 @@ import { Meta, StoryObj } from '@storybook/react';
 import { CalendarType, WeekStartDay } from '@/constants/calendar';
 import { CalendarCountries } from '@/constants/holidays';
 import DatePickerCreator from '@/services/datePickerCreator';
-import { DatePickerCreatorTemplate } from '@/utils/storybook';
+import { baseArgsType, DatePickerCreatorTemplate } from '@/utils/storybook';
 
 const meta = {
   component: DatePickerCreator,
   argTypes: {
+    ...baseArgsType,
     weekStartDay: {
       options: Object.values(WeekStartDay),
       control: 'select',
@@ -15,19 +16,10 @@ const meta = {
       options: Object.keys(CalendarCountries),
       control: 'select',
     },
-    minDate: {
-      control: 'date',
-    },
-    maxDate: {
-      control: 'date',
-    },
     chooseWeekends: {
       control: 'boolean',
     },
     withTodoList: {
-      control: 'boolean',
-    },
-    withRangePicker: {
       control: 'boolean',
     },
   },
@@ -46,7 +38,7 @@ export const Base: Story = {
     type: CalendarType.Date,
     weekStartDay: WeekStartDay.Monday,
     chooseWeekends: false,
-    withTodoList: false,
-    withRangePicker: true,
+    withTodoList: true,
+    withRangePicker: false,
   },
 };

@@ -15,6 +15,8 @@ export const StyledCalendar = styled.div`
   position: absolute;
   margin-top: ${(props) => props.theme.constants.padding.xs};
   padding: ${(props) => props.theme.constants.padding.md} 0;
+  background-color: ${(props) => props.theme.colors.white};
+  color: ${(props) => props.theme.colors.black};
 `;
 
 export const CalendarLabel = styled.label`

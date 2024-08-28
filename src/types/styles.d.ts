@@ -1,19 +1,10 @@
+import { CalendarThemeColors } from './styling';
+
 import 'styled-components';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
-    colors: {
-      white: string;
-      black: string;
-      blue: string;
-      blueAlpha: string;
-      lightBlue: string;
-      lightBlueAlpha: string;
-      gray: string;
-      lightGray: string;
-      darkGray: string;
-      red: string;
-    };
+    colors: CalendarThemeColors;
     font: {
       size: {
         xs: string;
