@@ -19,19 +19,15 @@ export default function Calendar({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const calendarRef = useRef<HTMLDivElement>(null);
 
-  function handleOpen() {
-    setIsOpen(true);
-  }
+  const handleOpen = () => setIsOpen(true);
 
-  function handleClose() {
-    setIsOpen(false);
-  }
+  const handleClose = () => setIsOpen(false);
 
-  function handleBlur(event: MouseEvent) {
+  const handleBlur = (event: MouseEvent) => {
     if (calendarRef.current) {
       if (!calendarRef.current.contains(event.target as HTMLElement)) handleClose();
     }
-  }
+  };
 
   useEffect(() => {
     document.addEventListener('mousedown', handleBlur);

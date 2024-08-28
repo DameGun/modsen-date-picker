@@ -16,7 +16,7 @@ const StyledHolidayTooltip = styled.span`
   border-radius: ${(props) => props.theme.constants.borderRadius};
 
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity ${(props) => props.theme.constants.transitionTime.md};
 
   ${StyledCalendarItem}:hover & {
     visibility: visible;

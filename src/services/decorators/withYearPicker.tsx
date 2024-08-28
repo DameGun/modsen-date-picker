@@ -1,4 +1,4 @@
-import { ComponentType, useContext, useMemo } from 'react';
+import { ComponentType, useCallback, useContext, useMemo } from 'react';
 import { CalendarType } from '@/constants/calendar';
 import { PlaceholderMaskType } from '@/constants/input';
 import { CALENDAR_LIST_SECONDARY_LENGTH } from '@/constants/layout';
@@ -23,33 +23,33 @@ export default function withYearPicker(
       [calendarYears]
     );
 
-    function handlePreviousYearRange() {
+    const handlePreviousYearRange = useCallback(() => {
       const newDate = new Date(currentDate);
       newDate.setFullYear(currentDate.getFullYear() - CALENDAR_LIST_SECONDARY_LENGTH);
 
       setCurrentDate(newDate);
-    }
+    }, [currentDate]);
 
-    function handleNextYearRange() {
+    const handleNextYearRange = useCallback(() => {
       const newDate = new Date(currentDate);
       newDate.setFullYear(currentDate.getFullYear() + CALENDAR_LIST_SECONDARY_LENGTH);
 
       setCurrentDate(newDate);
-    }
+    }, [currentDate]);
 
-    const handleInput = (newDate: string) => {
+    const handleInput = useCallback((newDate: string) => {
       const formattedInput = checkYearPickerInput(newDate);
       const formattedInputAsDate = parseYearPickerInput(formattedInput);
 
       handleChange(formattedInputAsDate, formattedInput);
-    };
+    }, []);
 
-    function handleClick(newDate: string) {
+    const handleClick = useCallback((newDate: string) => {
       const formattedInput = new Date(newDate).getFullYear().toString();
       const formattedInputAsDate = parseYearPickerInput(formattedInput);
 
       handleChange(formattedInputAsDate, formattedInput);
-    }
+    }, []);
 
     return (
       <WrappedComponent

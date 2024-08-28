@@ -38,6 +38,11 @@ declare module 'styled-components' {
       transitionTime: {
         md: string;
       };
+      opacity: {
+        sm: number;
+        md: number;
+        lg: number;
+      };
     };
   }
 }

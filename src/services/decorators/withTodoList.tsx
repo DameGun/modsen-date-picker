@@ -1,4 +1,4 @@
-import { ComponentType, useContext, useEffect, useState } from 'react';
+import { ComponentType, useCallback, useContext, useEffect, useState } from 'react';
 import { TodoList } from '@/components';
 import { TODOS_STORAGE_KEY } from '@/constants/todos';
 import type { CalendarProps } from '@/types/calendar';
@@ -22,29 +22,37 @@ export default function withTodoList(WrappedComponent: ComponentType<CalendarPro
       localStorage.setItem(TODOS_STORAGE_KEY, JSON.stringify(todos));
     }, [todos]);
 
-    const addTodo = (newItem: TodoItem) => {
-      const currentDateTodos = todos[inputValue] ?? [];
-      setTodos({ ...todos, [inputValue]: [...currentDateTodos, newItem] });
-    };
+    const addTodo = useCallback(
+      (newItem: TodoItem) =>
+        setTodos((prevTodos) => ({
+          ...prevTodos,
+          [inputValue]: [...(prevTodos[inputValue] ?? []), newItem],
+        })),
+      [inputValue]
+    );
 
-    const updateTodo = (updatedItem: TodoItem) => {
-      setTodos({
-        ...todos,
-        [inputValue]: todos[inputValue].map((item) => {
-          if (item.id === updatedItem.id) {
-            item = Object.assign({}, item, updatedItem);
-          }
-          return item;
-        }),
-      });
-    };
+    const updateTodo = useCallback(
+      (updatedItem: TodoItem) =>
+        setTodos((prevTodos) => ({
+          ...prevTodos,
+          [inputValue]: prevTodos[inputValue].map((item) => {
+            if (item.id === updatedItem.id) {
+              item = Object.assign({}, item, updatedItem);
+            }
+            return item;
+          }),
+        })),
+      [inputValue]
+    );
 
-    const deleteTodo = (id: string) => {
-      setTodos({
-        ...todos,
-        [inputValue]: todos[inputValue].filter((item) => item.id !== id),
-      });
-    };
+    const deleteTodo = useCallback(
+      (id: string) =>
+        setTodos((prevTodos) => ({
+          ...prevTodos,
+          [inputValue]: prevTodos[inputValue].filter((item) => item.id !== id),
+        })),
+      [inputValue]
+    );
 
     return (
       <WrappedComponent {...props}>

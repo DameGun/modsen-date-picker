@@ -4,4 +4,7 @@ export * from './datePickerContext';
 export * from './holidays';
 export * from './input';
 export * from './monthPicker';
+export * from './rangePicker';
+export * from './styling';
+export * from './todo';
 export * from './yearPicker';

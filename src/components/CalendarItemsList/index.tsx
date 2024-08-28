@@ -4,11 +4,9 @@ import type { CalendarItemsListProps } from '@/types/calendar';
 import StyledCalendarItemsList from './styled';
 
 export default function CalendarItemsList({ type, onItemClick, items }: CalendarItemsListProps) {
-  const [selectedId, setSelectedId] = useState<string>('');
+  const [selectedId, setSelectedId] = useState('');
 
-  function handleSelected(id: string) {
-    setSelectedId(id);
-  }
+  const handleSelected = (id: string) => setSelectedId(id);
 
   return (
     <StyledCalendarItemsList $type={type}>
