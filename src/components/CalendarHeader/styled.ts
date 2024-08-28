@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 
-export const StyledCalendarHeader = styled.div`
+const StyledCalendarHeader = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: ${(props) => props.theme.constants.padding.xs} 0;
+  padding: ${(props) => props.theme.constants.padding.xs}
+    ${(props) => props.theme.constants.padding.lg};
 
   font-weight: ${(props) => props.theme.font.weight.semibold};
 `;
+
+export default StyledCalendarHeader;

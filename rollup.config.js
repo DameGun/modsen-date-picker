@@ -4,7 +4,6 @@ import image from '@rollup/plugin-image';
 import resolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
 import typescript from '@rollup/plugin-typescript';
-import dts from 'rollup-plugin-dts';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import packageJson from './package.json';
 
@@ -29,16 +28,19 @@ export default [
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       }),
       commonjs(),
-      typescript(),
-      babel(),
+      typescript({
+        declaration: true,
+        declarationDir: 'dist',
+        exclude: ['src/stories/*.(ts|tsx)'],
+      }),
+      babel({
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        babelHelpers: 'bundled',
+        exclude: 'node_modules/**',
+      }),
       image(),
       terser(),
     ],
-    external: ['react', 'react-dom'],
-  },
-  {
-    input: 'src/index.ts',
-    output: [{ file: 'dist/types.d.ts', format: 'es' }],
-    plugins: [dts.default()],
+    external: ['react'],
   },
 ];

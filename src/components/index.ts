@@ -1,4 +1,9 @@
+export { default as Button } from './Button';
 export { default as Calendar } from './Calendar';
 export { default as CalendarHeader } from './CalendarHeader';
+export { default as CalendarItem } from './CalendarItem';
+export { default as CalendarItemsList } from './CalendarItemsList';
+export { default as HolidayTooltip } from './HolidayTolltip';
 export { default as IconButton } from './IconButton';
 export { default as Input } from './Input';
+export { default as WeekDaysHeader } from './WeekDaysHeader';
