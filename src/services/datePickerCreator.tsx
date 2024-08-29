@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Calendar } from '@/components';
+import { Calendar, ErrorBoundary } from '@/components';
 import { CalendarType } from '@/constants/calendar';
 import type { CalendarCreatorProps } from '@/types/calendar';
 import type { DatePickerProps } from '@/types/datePicker';
@@ -58,17 +58,29 @@ export default class DatePickerCreator extends Component<CalendarCreatorProps> {
       case CalendarType.Date: {
         const DatePicker = this.renderDatePicker(this.props);
 
-        return <DatePicker {...this.props} />;
+        return (
+          <ErrorBoundary>
+            <DatePicker {...this.props} />
+          </ErrorBoundary>
+        );
       }
       case CalendarType.Month: {
         const MonthPicker = this.renderMonthPicker(this.props);
 
-        return <MonthPicker {...this.props} />;
+        return (
+          <ErrorBoundary>
+            <MonthPicker {...this.props} />
+          </ErrorBoundary>
+        );
       }
       case CalendarType.Year: {
         const YearPicker = this.renderYearPicker(this.props);
 
-        return <YearPicker {...this.props} />;
+        return (
+          <ErrorBoundary>
+            <YearPicker {...this.props} />
+          </ErrorBoundary>
+        );
       }
     }
   }
