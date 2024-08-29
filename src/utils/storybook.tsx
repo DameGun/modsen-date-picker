@@ -1,9 +1,25 @@
+import { ArgTypes } from 'storybook/internal/types';
 import { CalendarType } from '@/constants/calendar';
 import DatePickerCreator from '@/services/datePickerCreator';
 import type { CalendarCreatorProps } from '@/types/calendar';
 import type { DatePickerProps } from '@/types/datePicker';
 import type { MonthPickerProps } from '@/types/monthPicker';
 import type { YearPickerProps } from '@/types/yearPicker';
+
+export const baseArgsType: Partial<ArgTypes<CalendarCreatorProps>> = {
+  minDate: {
+    control: 'date',
+  },
+  maxDate: {
+    control: 'date',
+  },
+  withRangePicker: {
+    control: 'boolean',
+  },
+  customTheme: {
+    control: 'object',
+  },
+};
 
 export const DatePickerCreatorTemplate = (args: CalendarCreatorProps) => {
   if (args.type === CalendarType.Date) {

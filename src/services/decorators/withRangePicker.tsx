@@ -1,4 +1,4 @@
-import { ComponentType, useContext, useMemo, useState } from 'react';
+import { ComponentType, useCallback, useContext, useMemo, useState } from 'react';
 import { ParseCalendarTypeToRangeType } from '@/constants/rangePicker';
 import type { CalendarProps, DateRange } from '@/types';
 import { parseDateRange, rangeInputValidation } from '@/utils/rangePicker';
@@ -27,38 +27,44 @@ export default function withRangePicker(WrappedComponent: ComponentType<Calendar
       return items;
     }, [dateRange, items]);
 
-    const handleInputRange = (value: string) => {
-      const [formattedInput, newDateRange] = rangeInputValidation(type, value);
+    const handleInputRange = useCallback(
+      (value: string) => {
+        const [formattedInput, newDateRange] = rangeInputValidation(type, value);
 
-      if (newDateRange[1] && newDateRange[0].getTime() > newDateRange[1].getTime()) {
-        [newDateRange[0], newDateRange[1]] = [newDateRange[1], newDateRange[0]];
-      }
+        if (newDateRange[1] && newDateRange[0].getTime() > newDateRange[1].getTime()) {
+          [newDateRange[0], newDateRange[1]] = [newDateRange[1], newDateRange[0]];
+        }
 
-      handleChange(new Date(newDateRange[1] ?? ''), formattedInput, newDateRange);
-      setDateRange(newDateRange);
-    };
-
-    const handleSelectRange = (newDate: string) => {
-      const newDateParsed = new Date(newDate);
-
-      if (dateRange[0] && !dateRange[1]) {
-        const newDateRange: DateRange =
-          dateRange[0] < newDateParsed
-            ? [dateRange[0], newDateParsed]
-            : [newDateParsed, dateRange[0]];
-
-        const formattedInput = parseDateRange(type, newDateRange);
-
+        handleChange(new Date(newDateRange[1] ?? ''), formattedInput, newDateRange);
         setDateRange(newDateRange);
-        handleChange(newDateParsed, formattedInput, [newDateRange[0], newDateRange[1]]);
-      } else {
-        const newDateRange: DateRange = [newDateParsed, null];
-        const formattedInput = parseDateRange(type, newDateRange);
+      },
+      [type]
+    );
 
-        setDateRange(newDateRange);
-        handleChange(newDateParsed, formattedInput, newDateRange);
-      }
-    };
+    const handleSelectRange = useCallback(
+      (newDate: string) => {
+        const newDateParsed = new Date(newDate);
+
+        if (dateRange[0] && !dateRange[1]) {
+          const newDateRange: DateRange =
+            dateRange[0] < newDateParsed
+              ? [dateRange[0], newDateParsed]
+              : [newDateParsed, dateRange[0]];
+
+          const formattedInput = parseDateRange(type, newDateRange);
+
+          setDateRange(newDateRange);
+          handleChange(newDateParsed, formattedInput, [newDateRange[0], newDateRange[1]]);
+        } else {
+          const newDateRange: DateRange = [newDateParsed, null];
+          const formattedInput = parseDateRange(type, newDateRange);
+
+          setDateRange(newDateRange);
+          handleChange(newDateParsed, formattedInput, newDateRange);
+        }
+      },
+      [dateRange, type]
+    );
 
     return (
       <WrappedComponent

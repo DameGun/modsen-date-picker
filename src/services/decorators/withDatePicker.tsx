@@ -1,4 +1,4 @@
-import { ComponentType, useContext, useMemo } from 'react';
+import { ComponentType, useCallback, useContext, useMemo } from 'react';
 import { WeekDaysHeader } from '@/components';
 import { CalendarType } from '@/constants/calendar';
 import { PlaceholderMaskType } from '@/constants/input';
@@ -28,32 +28,32 @@ export default function withDatePicker(
     );
     const headerText = useMemo(() => getCalendarHeaderText(type, currentDate), [type, currentDate]);
 
-    function handleNextMonth() {
+    const handleNextMonth = useCallback(() => {
       const newDate = new Date(currentDate);
       newDate.setMonth(newDate.getMonth() + 1);
 
       setCurrentDate(newDate);
-    }
+    }, [currentDate]);
 
-    function handlePreviousMonth() {
+    const handlePreviousMonth = useCallback(() => {
       const newDate = new Date(currentDate);
       newDate.setMonth(newDate.getMonth() - 1);
 
       setCurrentDate(newDate);
-    }
+    }, [currentDate]);
 
-    const handleInput = (newDate: string) => {
+    const handleInput = useCallback((newDate: string) => {
       const formattedInput = checkDatePickerInput(newDate);
       const formattedInputAsDate = new Date(formattedInput);
 
       handleChange(formattedInputAsDate, formattedInput);
-    };
+    }, []);
 
-    function handleClick(newDate: string) {
+    const handleClick = useCallback((newDate: string) => {
       const formattedInputAsDate = new Date(newDate);
 
       handleChange(formattedInputAsDate, newDate);
-    }
+    }, []);
 
     return (
       <WrappedComponent

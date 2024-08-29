@@ -46,5 +46,10 @@ export const baseTheme: DefaultTheme = {
     transitionTime: {
       md: '0.3s',
     },
+    opacity: {
+      sm: 0.4,
+      md: 0.5,
+      lg: 0.7,
+    },
   },
 };

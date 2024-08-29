@@ -1,4 +1,4 @@
-import { ComponentType, useContext, useMemo } from 'react';
+import { ComponentType, useCallback, useContext, useMemo } from 'react';
 import { CalendarType } from '@/constants/calendar';
 import { PlaceholderMaskType } from '@/constants/input';
 import type { CalendarLimitations, CalendarProps } from '@/types/calendar';
@@ -20,33 +20,33 @@ export default function withMonthPicker(
     );
     const headerText = useMemo(() => getCalendarHeaderText(type, currentDate), [currentDate]);
 
-    function handleNextYear() {
+    const handleNextYear = useCallback(() => {
       const newDate = new Date(currentDate);
       newDate.setFullYear(currentDate.getFullYear() + 1);
 
       setCurrentDate(newDate);
-    }
+    }, [currentDate]);
 
-    function handlePreviousYear() {
+    const handlePreviousYear = useCallback(() => {
       const newDate = new Date(currentDate);
       newDate.setFullYear(currentDate.getFullYear() - 1);
 
       setCurrentDate(newDate);
-    }
+    }, [currentDate]);
 
-    const handleInput = (newDate: string) => {
+    const handleInput = useCallback((newDate: string) => {
       const formattedInput = checkMonthPickerInput(newDate);
       const formattedInputAsDate = parseMonthPickerInput(formattedInput);
 
       handleChange(formattedInputAsDate, formattedInput);
-    };
+    }, []);
 
-    function handleClick(newDate: string) {
+    const handleClick = useCallback((newDate: string) => {
       const formattedInputAsDate = new Date(newDate);
       const formattedInput = getMonthYearDateString(formattedInputAsDate);
 
       handleChange(formattedInputAsDate, formattedInput);
-    }
+    }, []);
 
     return (
       <WrappedComponent

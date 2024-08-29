@@ -13,12 +13,12 @@ export default function CalendarItem({
 }: CalendarItemProps) {
   const { currentDate } = useContext(DatePickerContext);
 
-  function handleClick() {
+  const handleClick = () => {
     if (!item.isDisabled) {
       onItemClick(item.id);
       onSelected(item.id);
     }
-  }
+  };
 
   return (
     <StyledCalendarItem

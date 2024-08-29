@@ -10,6 +10,7 @@ export const InputWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   gap: ${(props) => props.theme.constants.gap.sm};
+  background-color: ${(props) => props.theme.colors.white};
 
   &:focus-within {
     border-color: ${(props) => props.theme.colors.lightBlue};

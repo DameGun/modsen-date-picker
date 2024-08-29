@@ -11,6 +11,7 @@ import {
   withMinMaxValues,
   withMonthPicker,
   withRangePicker,
+  withStyling,
   withTodoList,
   withYearPicker,
 } from './decorators';
@@ -27,6 +28,7 @@ export default class DatePickerCreator extends Component<CalendarCreatorProps> {
     if (props.withTodoList) basePicker = withTodoList(basePicker);
     if (props.minDate || props.maxDate) basePicker = withMinMaxValues(basePicker);
     if (props.holidaysCountry) basePicker = withHolidays(basePicker);
+    if (props.customTheme) basePicker = withStyling(basePicker);
 
     return withDatePicker(basePicker);
   }
@@ -36,6 +38,7 @@ export default class DatePickerCreator extends Component<CalendarCreatorProps> {
 
     if (props.withRangePicker) basePicker = withRangePicker(basePicker);
     if (props.minDate || props.maxDate) basePicker = withMinMaxValues(basePicker);
+    if (props.customTheme) basePicker = withStyling(basePicker);
 
     return withMonthPicker(basePicker);
   }
@@ -45,6 +48,7 @@ export default class DatePickerCreator extends Component<CalendarCreatorProps> {
 
     if (props.withRangePicker) basePicker = withRangePicker(basePicker);
     if (props.minDate || props.maxDate) basePicker = withMinMaxValues(basePicker);
+    if (props.customTheme) basePicker = withStyling(basePicker);
 
     return withYearPicker(basePicker);
   }
