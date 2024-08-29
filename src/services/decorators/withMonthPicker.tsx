@@ -1,23 +1,19 @@
 import { ComponentType, useContext, useMemo } from 'react';
-import { CalendarType, ChangeActionType } from '@/constants/calendar';
-import { CalendarLimitations, CalendarProps } from '@/types/calendar';
-import { MonthPickerProps } from '@/types/monthPicker';
+import { CalendarType } from '@/constants/calendar';
+import { PlaceholderMaskType } from '@/constants/input';
+import type { CalendarLimitations, CalendarProps } from '@/types/calendar';
+import type { MonthPickerProps } from '@/types/monthPicker';
 import { getCalendarHeaderText } from '@/utils/calendarHeader';
 import { getCalendarMonths } from '@/utils/calendarMonths';
-import { checkMonthPickerInput } from '@/utils/inputMask';
+import { checkMonthPickerInput, parseMonthPickerInput } from '@/utils/inputMask';
 import { getMonthYearDateString } from '@/utils/localeDate';
 import { DatePickerContext } from '../context/datePickerContext';
 
 export default function withMonthPicker(
   WrappedComponent: ComponentType<CalendarProps & CalendarLimitations>
 ) {
-  const MonthPicker = ({
-    type = CalendarType.Month,
-    onChange,
-    minDate,
-    maxDate,
-  }: MonthPickerProps) => {
-    const { currentDate, setCurrentDate, setInputValue } = useContext(DatePickerContext);
+  const MonthPicker = ({ type = CalendarType.Month, minDate, maxDate }: MonthPickerProps) => {
+    const { currentDate, setCurrentDate, handleChange } = useContext(DatePickerContext);
     const calendarMonths = useMemo(
       () => getCalendarMonths(currentDate),
       [currentDate, minDate, maxDate]
@@ -38,25 +34,18 @@ export default function withMonthPicker(
       setCurrentDate(newDate);
     }
 
-    function handleChange(newDate: string, actionType: ChangeActionType) {
-      let formattedInput = newDate;
-      let parsedDateObj = currentDate;
+    const handleInput = (newDate: string) => {
+      const formattedInput = checkMonthPickerInput(newDate);
+      const formattedInputAsDate = parseMonthPickerInput(formattedInput);
 
-      if (actionType === ChangeActionType.Input) {
-        formattedInput = checkMonthPickerInput(newDate);
+      handleChange(formattedInputAsDate, formattedInput);
+    };
 
-        const [month, year] = formattedInput.split('/');
-        const buffDate = new Date(+year, +month - 1, 1);
+    function handleClick(newDate: string) {
+      const formattedInputAsDate = new Date(newDate);
+      const formattedInput = getMonthYearDateString(formattedInputAsDate);
 
-        parsedDateObj = buffDate;
-      } else {
-        parsedDateObj = new Date(newDate);
-        formattedInput = getMonthYearDateString(parsedDateObj);
-      }
-
-      setInputValue(formattedInput);
-      setCurrentDate(parsedDateObj);
-      if (onChange) onChange(formattedInput);
+      handleChange(formattedInputAsDate, formattedInput);
     }
 
     return (
@@ -66,9 +55,11 @@ export default function withMonthPicker(
         headerText={headerText}
         onNext={handleNextYear}
         onPrevious={handlePreviousYear}
-        onChange={handleChange}
+        onInputChange={handleInput}
+        onItemClick={handleClick}
         minDate={minDate}
         maxDate={maxDate}
+        placeholderMask={PlaceholderMaskType[type]}
       />
     );
   };

@@ -1,32 +1,69 @@
 import { Component } from 'react';
 import { Calendar } from '@/components';
 import { CalendarType } from '@/constants/calendar';
-import { CalendarCreatorProps } from '@/types/calendar';
-import { withDatePicker, withHolidays, withMonthPicker, withYearPicker } from './decorators';
-import withMinMaxDate from './decorators/withMinMaxValues';
+import type { CalendarCreatorProps } from '@/types/calendar';
+import type { DatePickerProps } from '@/types/datePicker';
+import type { MonthPickerProps } from '@/types/monthPicker';
+import { YearPickerProps } from '@/types/yearPicker';
+import {
+  withDatePicker,
+  withHolidays,
+  withMinMaxValues,
+  withMonthPicker,
+  withRangePicker,
+  withTodoList,
+  withYearPicker,
+} from './decorators';
 
 export default class DatePickerCreator extends Component<CalendarCreatorProps> {
   constructor(props: CalendarCreatorProps) {
     super(props);
   }
-  public static renderDatePicker = withDatePicker(withHolidays(withMinMaxDate(Calendar)));
 
-  public static renderMonthPicker = withMonthPicker(withMinMaxDate(Calendar));
+  private renderDatePicker(props: DatePickerProps) {
+    let basePicker = Calendar;
 
-  public static renderYearPicker = withYearPicker(withMinMaxDate(Calendar));
+    if (props.withRangePicker) basePicker = withRangePicker(basePicker);
+    if (props.withTodoList) basePicker = withTodoList(basePicker);
+    if (props.minDate || props.maxDate) basePicker = withMinMaxValues(basePicker);
+    if (props.holidaysCountry) basePicker = withHolidays(basePicker);
+
+    return withDatePicker(basePicker);
+  }
+
+  private renderMonthPicker(props: MonthPickerProps) {
+    let basePicker = Calendar;
+
+    if (props.withRangePicker) basePicker = withRangePicker(basePicker);
+    if (props.minDate || props.maxDate) basePicker = withMinMaxValues(basePicker);
+
+    return withMonthPicker(basePicker);
+  }
+
+  private renderYearPicker(props: YearPickerProps) {
+    let basePicker = Calendar;
+
+    if (props.withRangePicker) basePicker = withRangePicker(basePicker);
+    if (props.minDate || props.maxDate) basePicker = withMinMaxValues(basePicker);
+
+    return withYearPicker(basePicker);
+  }
 
   render() {
     switch (this.props.type) {
       case CalendarType.Date: {
-        const DatePicker = DatePickerCreator.renderDatePicker;
+        const DatePicker = this.renderDatePicker(this.props);
+
         return <DatePicker {...this.props} />;
       }
       case CalendarType.Month: {
-        const MonthPicker = DatePickerCreator.renderMonthPicker;
+        const MonthPicker = this.renderMonthPicker(this.props);
+
         return <MonthPicker {...this.props} />;
       }
       case CalendarType.Year: {
-        const YearPicker = DatePickerCreator.renderYearPicker;
+        const YearPicker = this.renderYearPicker(this.props);
+
         return <YearPicker {...this.props} />;
       }
     }

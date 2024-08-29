@@ -1,3 +1,4 @@
+export { default as AddTodoItem } from './AddTodoItem';
 export { default as Button } from './Button';
 export { default as Calendar } from './Calendar';
 export { default as CalendarHeader } from './CalendarHeader';
@@ -6,4 +7,7 @@ export { default as CalendarItemsList } from './CalendarItemsList';
 export { default as HolidayTooltip } from './HolidayTolltip';
 export { default as IconButton } from './IconButton';
 export { default as Input } from './Input';
+export { default as StyledInput } from './StyledInput';
+export { default as TodoList } from './TodoList';
+export { default as TodoListItem } from './TodoListItem';
 export { default as WeekDaysHeader } from './WeekDaysHeader';

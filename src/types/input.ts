@@ -1,6 +1,6 @@
-import { Calendar } from './calendar';
+import { CalendarProps } from './calendar';
 
-interface InputProps extends Calendar {
+interface InputProps extends Pick<CalendarProps, 'onInputChange' | 'placeholderMask'> {
   onFocus: VoidFunction;
 }
 

@@ -3,7 +3,7 @@ import { CalendarItem } from '@/components';
 import type { CalendarItemsListProps } from '@/types/calendar';
 import StyledCalendarItemsList from './styled';
 
-export default function CalendarItemsList({ type, onChange, items }: CalendarItemsListProps) {
+export default function CalendarItemsList({ type, onItemClick, items }: CalendarItemsListProps) {
   const [selectedId, setSelectedId] = useState<string>('');
 
   function handleSelected(id: string) {
@@ -16,7 +16,7 @@ export default function CalendarItemsList({ type, onChange, items }: CalendarIte
         <CalendarItem
           item={item}
           key={item.id}
-          onChange={onChange}
+          onItemClick={onItemClick}
           onSelected={handleSelected}
           selectedId={selectedId}
         />

@@ -7,9 +7,12 @@ import { CalendarLabel, CalendarWrapper, StyledCalendar } from './styled';
 
 export default function Calendar({
   type,
-  onChange,
   additionalHeader: weeksHeader,
   items,
+  children,
+  onItemClick,
+  onInputChange,
+  placeholderMask,
   ...calendarHeaderProps
 }: CalendarProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -41,12 +44,17 @@ export default function Calendar({
     <ThemeProvider theme={baseTheme}>
       <CalendarWrapper>
         <CalendarLabel>Date</CalendarLabel>
-        <Input type={type} onFocus={handleOpen} onChange={onChange} />
+        <Input
+          placeholderMask={placeholderMask}
+          onFocus={handleOpen}
+          onInputChange={onInputChange}
+        />
         {isOpen && (
           <StyledCalendar ref={calendarRef} tabIndex={0}>
+            {children}
             <CalendarHeader {...calendarHeaderProps} />
             {weeksHeader}
-            <CalendarItemsList type={type} items={items} onChange={onChange} />
+            <CalendarItemsList type={type} items={items} onItemClick={onItemClick} />
           </StyledCalendar>
         )}
       </CalendarWrapper>

@@ -25,7 +25,10 @@ const preview: Preview = {
       Provider: ThemeProvider,
     }),
     (Story, { parameters }) => (
-      <DatePickerContextProvider type={parameters['type']}>
+      <DatePickerContextProvider
+        type={parameters['type']}
+        onChange={(value) => console.log('User will get:', value)}
+      >
         <Story />
       </DatePickerContextProvider>
     ),

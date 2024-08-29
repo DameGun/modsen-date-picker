@@ -1,7 +1,7 @@
 import { ComponentType, useContext, useEffect, useMemo, useState } from 'react';
 import { CalendarCountries } from '@/constants/holidays';
-import { CalendarLimitations, CalendarProps } from '@/types/calendar';
-import { HolidayItem, HolidaysProps } from '@/types/holidays';
+import type { CalendarLimitations, CalendarProps } from '@/types/calendar';
+import type { HolidayItem, HolidaysProps } from '@/types/holidays';
 import { parseHolidaysInCalendarItems } from '@/utils/holidays';
 import { fetchHolidaysByCountryCode } from '../api/holidaysApi';
 import { DatePickerContext } from '../context/datePickerContext';

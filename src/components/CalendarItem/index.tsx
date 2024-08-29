@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import { HolidayTooltip } from '@/components';
-import { ChangeActionType } from '@/constants/calendar';
 import { DatePickerContext } from '@/services/context/datePickerContext';
 import type { CalendarItemProps } from '@/types/calendar';
 import { getFullDateString } from '@/utils/localeDate';
@@ -8,7 +7,7 @@ import StyledCalendarItem from './styled';
 
 export default function CalendarItem({
   item,
-  onChange,
+  onItemClick,
   onSelected,
   selectedId,
 }: CalendarItemProps) {
@@ -16,7 +15,7 @@ export default function CalendarItem({
 
   function handleClick() {
     if (!item.isDisabled) {
-      onChange(item.id, ChangeActionType.Click);
+      onItemClick(item.id);
       onSelected(item.id);
     }
   }
@@ -27,6 +26,9 @@ export default function CalendarItem({
       $isFocused={item.id === getFullDateString(currentDate)}
       $isSelected={item.id === selectedId}
       $isHoliday={Boolean(item.holiday)}
+      $isStartRange={item.isStartRange}
+      $isInsideRange={item.isInsideRange}
+      $isEndRange={item.isEndRange}
       onClick={handleClick}
     >
       {item.value}

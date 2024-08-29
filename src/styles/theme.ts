@@ -5,7 +5,9 @@ export const baseTheme: DefaultTheme = {
     white: '#FFFFFF',
     black: '#333333',
     blue: '#2F80ED',
+    blueAlpha: '#2F80ED99',
     lightBlue: '#2F80ED99',
+    lightBlueAlpha: '#2F80ED1A',
     gray: '#F1F1F1',
     lightGray: '#DDDDDD',
     darkGray: '#AAAAAA',
@@ -41,5 +43,8 @@ export const baseTheme: DefaultTheme = {
       sm: '8px',
     },
     borderWidth: '1px',
+    transitionTime: {
+      md: '0.3s',
+    },
   },
 };

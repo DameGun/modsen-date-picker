@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { CalendarType, ChangeActionType } from '@/constants/calendar';
+import { CalendarType } from '@/constants/calendar';
 import { DatePickerProps } from './datePicker';
 import { HolidayItem } from './holidays';
 import { MonthPickerProps } from './monthPicker';
@@ -10,16 +10,28 @@ type CalendarItemType = {
   value: string;
   isDisabled: boolean;
   holiday?: HolidayItem;
+  todoItemsCount?: number;
+  isStartRange?: boolean;
+  isInsideRange?: boolean;
+  isEndRange?: boolean;
 };
+
+type DateRange = [Date, Date | null];
+
+type ResultDateType = Date | DateRange;
 
 interface Calendar {
   type: CalendarType;
-  onChange(newDate: string, actionType?: ChangeActionType): void;
+  onChange?(newDate: ResultDateType): void;
+  children?: ReactNode;
 }
 
 interface ServiceCalendarProps {
   items: CalendarItemType[];
   additionalHeader?: ReactNode;
+  onInputChange(newDate: string): void;
+  onItemClick(newDate: string): void;
+  placeholderMask: string;
 }
 
 interface CalendarHeaderProps {
@@ -30,7 +42,7 @@ interface CalendarHeaderProps {
   disableNextButton?: boolean;
 }
 
-interface CalendarItemProps extends Pick<Calendar, 'onChange'> {
+interface CalendarItemProps extends Pick<ServiceCalendarProps, 'onItemClick'> {
   item: CalendarItemType;
   selectedId: string;
   onSelected(id: string): void;
@@ -41,7 +53,8 @@ interface CalendarLimitations {
   maxDate?: Date;
 }
 
-type CalendarItemsListProps = Calendar & Pick<ServiceCalendarProps, 'items'>;
+type CalendarItemsListProps = Pick<Calendar, 'type'> &
+  Pick<ServiceCalendarProps, 'items' | 'onItemClick'>;
 
 type CalendarProps = Calendar & ServiceCalendarProps & CalendarHeaderProps;
 
@@ -62,4 +75,6 @@ export type {
   CalendarItemType,
   CalendarLimitations,
   CalendarProps,
+  DateRange,
+  ResultDateType,
 };
