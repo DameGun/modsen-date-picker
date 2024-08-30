@@ -18,8 +18,11 @@ export function DatePickerContextProvider({
   children,
   type,
   onChange,
+  initialDate,
 }: DatePickerContextProviderProps) {
-  const [currentDate, setCurrentDate] = useState<Date>(getInitialDateOnCalendarType(type));
+  const [currentDate, setCurrentDate] = useState<Date>(
+    getInitialDateOnCalendarType(type, initialDate)
+  );
   const [inputValue, setInputValue] = useState<string>('');
 
   const handleDate = (newDate: Date) => {

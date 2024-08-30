@@ -4,7 +4,7 @@ const StyledButton = styled.button<{ $isDisabled?: boolean; $isUnavaliable?: boo
   all: unset;
   cursor: ${(props) => (props.$isDisabled ? 'default' : 'pointer')};
   opacity: ${(props) => (props.$isUnavaliable ? props.theme.constants.opacity.sm : 1)};
-  pointer-events: ${(props) => props.$isUnavaliable && 'none'};
+  pointer-events: ${(props) => (props.$isUnavaliable || props.$isDisabled) && 'none'};
 `;
 
 export default StyledButton;

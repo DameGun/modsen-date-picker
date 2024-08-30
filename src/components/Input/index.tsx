@@ -18,7 +18,7 @@ export default function Input({ placeholderMask, onFocus, onInputChange }: Input
     }
   };
 
-  const handleClear = (e: MouseEvent<HTMLImageElement>) => {
+  const handleClear = (e: MouseEvent<HTMLButtonElement>) => {
     onInputChange('');
     setCurrentDate(new Date());
     e.stopPropagation();
@@ -29,7 +29,7 @@ export default function Input({ placeholderMask, onFocus, onInputChange }: Input
   const handleBlur = (e: FocusEvent<HTMLInputElement>) => e.preventDefault();
 
   return (
-    <InputWrapper onClick={setInputFocus}>
+    <InputWrapper onClick={setInputFocus} data-testid='date-picker-input'>
       <IconButton icon={calendarIcon} />
       <StyledInput
         placeholder={placeholderMask}

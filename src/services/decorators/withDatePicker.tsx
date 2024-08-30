@@ -1,6 +1,6 @@
 import { ComponentType, useCallback, useContext, useMemo } from 'react';
 import { WeekDaysHeader } from '@/components';
-import { CalendarType } from '@/constants/calendar';
+import { CalendarType, WeekStartDay } from '@/constants/calendar';
 import { PlaceholderMaskType } from '@/constants/input';
 import type { CalendarLimitations, CalendarProps } from '@/types/calendar';
 import type { DatePickerProps } from '@/types/datePicker';
@@ -15,7 +15,7 @@ export default function withDatePicker(
 ) {
   const DatePicker = ({
     type = CalendarType.Date,
-    weekStartDay,
+    weekStartDay = WeekStartDay.Monday,
     minDate,
     maxDate,
     chooseWeekends,
@@ -24,7 +24,7 @@ export default function withDatePicker(
     const { currentDate, handleChange, setCurrentDate } = useContext(DatePickerContext);
     const calendarDays = useMemo(
       () => getCalendarDays(currentDate, weekStartDay, chooseWeekends),
-      [currentDate, weekStartDay, minDate, maxDate]
+      [currentDate, weekStartDay, chooseWeekends]
     );
     const headerText = useMemo(() => getCalendarHeaderText(type, currentDate), [type, currentDate]);
 

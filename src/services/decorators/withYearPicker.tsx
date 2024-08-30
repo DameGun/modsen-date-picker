@@ -14,10 +14,7 @@ export default function withYearPicker(
 ) {
   const YearPicker = ({ type = CalendarType.Year, minDate, maxDate }: YearPickerProps) => {
     const { currentDate, setCurrentDate, handleChange } = useContext(DatePickerContext);
-    const calendarYears = useMemo(
-      () => getCalendarYears(currentDate),
-      [currentDate, minDate, maxDate]
-    );
+    const calendarYears = useMemo(() => getCalendarYears(currentDate), [currentDate]);
     const headerText = useMemo(
       () => getCalendarHeaderTextYearRange(calendarYears),
       [calendarYears]

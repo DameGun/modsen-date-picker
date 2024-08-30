@@ -14,10 +14,7 @@ export default function withMonthPicker(
 ) {
   const MonthPicker = ({ type = CalendarType.Month, minDate, maxDate }: MonthPickerProps) => {
     const { currentDate, setCurrentDate, handleChange } = useContext(DatePickerContext);
-    const calendarMonths = useMemo(
-      () => getCalendarMonths(currentDate),
-      [currentDate, minDate, maxDate]
-    );
+    const calendarMonths = useMemo(() => getCalendarMonths(currentDate), [currentDate]);
     const headerText = useMemo(() => getCalendarHeaderText(type, currentDate), [currentDate]);
 
     const handleNextYear = useCallback(() => {

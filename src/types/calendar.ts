@@ -25,6 +25,7 @@ interface Calendar {
   type: CalendarType;
   onChange?(newDate: ResultDateType): void;
   children?: ReactNode;
+  initialDate?: Date;
 }
 
 interface ServiceCalendarProps {

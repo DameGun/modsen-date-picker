@@ -38,7 +38,7 @@ export default function TodoListItem({ item, updateTodo, deleteTodo }: TodoListI
     <TodoListItemContainer>
       <TodoListItemCheckbox defaultChecked={item.isComplete} onClick={handleUpdateStatus} />
       <TodoListItemInput value={content} onChange={handleChange} onBlur={handleUpdateContent} />
-      <IconButton icon={deleteIcon} onClick={handleDelete} />
+      <IconButton icon={deleteIcon} onClick={handleDelete} testid='delete-todo-button' />
     </TodoListItemContainer>
   );
 }

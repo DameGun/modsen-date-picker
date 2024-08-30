@@ -21,6 +21,6 @@ export const Base: Story = {
     type: CalendarType.Month,
     minDate: undefined,
     maxDate: undefined,
-    withRangePicker: true,
+    withRangePicker: false,
   },
 };

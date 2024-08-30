@@ -5,7 +5,7 @@ import { RangePickerProps } from './rangePicker';
 import { UserStylingProps } from './styling';
 
 interface WeekHeaderProps {
-  weekStartDay: WeekStartDay;
+  weekStartDay?: WeekStartDay;
 }
 
 interface DatePickerProps

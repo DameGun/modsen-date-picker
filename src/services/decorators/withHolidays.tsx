@@ -12,14 +12,15 @@ export default function withHolidays(
   const HolidaysComponent = ({
     holidaysCountry: country,
     items,
+    customHolidays,
     ...props
   }: CalendarProps & HolidaysProps & CalendarLimitations) => {
     const { currentDate } = useContext(DatePickerContext);
     const [holidays, setHolidays] = useState<HolidayItem[]>([]);
     const [currentYear, setCurrentYear] = useState<number>();
     const itemsWithHolidays = useMemo(
-      () => parseHolidaysInCalendarItems(holidays, items),
-      [currentYear, holidays, items]
+      () => parseHolidaysInCalendarItems(holidays.concat(...(customHolidays ?? [])), items),
+      [currentYear, holidays, items, customHolidays]
     );
 
     const getHolidays = useCallback(

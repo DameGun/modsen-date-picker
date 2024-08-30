@@ -16,6 +16,9 @@ const meta = {
       options: Object.keys(CalendarCountries),
       control: 'select',
     },
+    customHolidays: {
+      control: 'object',
+    },
     chooseWeekends: {
       control: 'boolean',
     },
@@ -37,8 +40,23 @@ export const Base: Story = {
   args: {
     type: CalendarType.Date,
     weekStartDay: WeekStartDay.Monday,
-    chooseWeekends: false,
-    withTodoList: true,
+    chooseWeekends: true,
+    withTodoList: false,
     withRangePicker: false,
+    holidaysCountry: 'Bulgaria',
+
+    customHolidays: [
+      {
+        date: '08/01/2024',
+        name: 'My uncle birthday',
+      },
+      {
+        date: '08/02/2024',
+        name: 'My birthDay',
+      },
+    ],
+
+    minDate: 1723496400000,
+    maxDate: 1724360400000,
   },
 };
