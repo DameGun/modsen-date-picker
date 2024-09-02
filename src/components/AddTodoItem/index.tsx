@@ -26,8 +26,13 @@ export default function AddTodoItem({ addTodo }: AddTodoItemProps) {
 
   return (
     <AddTodoItemContainer>
-      <StyledInput value={content} onChange={handleChange} />
-      <IconButton icon={plusIcon} onClick={handleAddTodo} isUnavaliable={!content} />
+      <StyledInput value={content} onChange={handleChange} data-testid='add-todo-input' />
+      <IconButton
+        icon={plusIcon}
+        onClick={handleAddTodo}
+        isUnavaliable={!content}
+        testid='add-todo-button'
+      />
     </AddTodoItemContainer>
   );
 }

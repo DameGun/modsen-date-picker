@@ -34,7 +34,12 @@ export default function TodoList({
         <p>
           <i>{lastTodoInfoBar}</i>
         </p>
-        <IconButton icon={todolistIcon} onClick={handleOpen} isUnavaliable={!selectedDate} />
+        <IconButton
+          icon={todolistIcon}
+          onClick={handleOpen}
+          isUnavaliable={!selectedDate}
+          testid='todolist-button'
+        />
       </TodoListHeader>
       {isOpen && (
         <TodoListWrapper>

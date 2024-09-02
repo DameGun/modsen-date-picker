@@ -1,6 +1,6 @@
-import { ComponentType, useContext, useMemo } from 'react';
+import { ComponentType, useCallback, useContext, useMemo } from 'react';
 import { WeekDaysHeader } from '@/components';
-import { CalendarType } from '@/constants/calendar';
+import { CalendarType, WeekStartDay } from '@/constants/calendar';
 import { PlaceholderMaskType } from '@/constants/input';
 import type { CalendarLimitations, CalendarProps } from '@/types/calendar';
 import type { DatePickerProps } from '@/types/datePicker';
@@ -15,7 +15,7 @@ export default function withDatePicker(
 ) {
   const DatePicker = ({
     type = CalendarType.Date,
-    weekStartDay,
+    weekStartDay = WeekStartDay.Monday,
     minDate,
     maxDate,
     chooseWeekends,
@@ -24,36 +24,36 @@ export default function withDatePicker(
     const { currentDate, handleChange, setCurrentDate } = useContext(DatePickerContext);
     const calendarDays = useMemo(
       () => getCalendarDays(currentDate, weekStartDay, chooseWeekends),
-      [currentDate, weekStartDay, minDate, maxDate]
+      [currentDate, weekStartDay, chooseWeekends]
     );
     const headerText = useMemo(() => getCalendarHeaderText(type, currentDate), [type, currentDate]);
 
-    function handleNextMonth() {
+    const handleNextMonth = useCallback(() => {
       const newDate = new Date(currentDate);
       newDate.setMonth(newDate.getMonth() + 1);
 
       setCurrentDate(newDate);
-    }
+    }, [currentDate]);
 
-    function handlePreviousMonth() {
+    const handlePreviousMonth = useCallback(() => {
       const newDate = new Date(currentDate);
       newDate.setMonth(newDate.getMonth() - 1);
 
       setCurrentDate(newDate);
-    }
+    }, [currentDate]);
 
-    const handleInput = (newDate: string) => {
+    const handleInput = useCallback((newDate: string) => {
       const formattedInput = checkDatePickerInput(newDate);
       const formattedInputAsDate = new Date(formattedInput);
 
       handleChange(formattedInputAsDate, formattedInput);
-    };
+    }, []);
 
-    function handleClick(newDate: string) {
+    const handleClick = useCallback((newDate: string) => {
       const formattedInputAsDate = new Date(newDate);
 
       handleChange(formattedInputAsDate, newDate);
-    }
+    }, []);
 
     return (
       <WrappedComponent

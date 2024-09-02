@@ -3,6 +3,7 @@ import { CalendarType } from '@/constants/calendar';
 import { DatePickerProps } from './datePicker';
 import { HolidayItem } from './holidays';
 import { MonthPickerProps } from './monthPicker';
+import { StylingProps } from './styling';
 import { YearPickerProps } from './yearPicker';
 
 type CalendarItemType = {
@@ -24,6 +25,7 @@ interface Calendar {
   type: CalendarType;
   onChange?(newDate: ResultDateType): void;
   children?: ReactNode;
+  initialDate?: Date;
 }
 
 interface ServiceCalendarProps {
@@ -56,7 +58,7 @@ interface CalendarLimitations {
 type CalendarItemsListProps = Pick<Calendar, 'type'> &
   Pick<ServiceCalendarProps, 'items' | 'onItemClick'>;
 
-type CalendarProps = Calendar & ServiceCalendarProps & CalendarHeaderProps;
+type CalendarProps = Calendar & ServiceCalendarProps & CalendarHeaderProps & StylingProps;
 
 type CalendarCreatorProps =
   | {

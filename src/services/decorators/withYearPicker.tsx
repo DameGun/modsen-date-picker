@@ -1,4 +1,4 @@
-import { ComponentType, useContext, useMemo } from 'react';
+import { ComponentType, useCallback, useContext, useMemo } from 'react';
 import { CalendarType } from '@/constants/calendar';
 import { PlaceholderMaskType } from '@/constants/input';
 import { CALENDAR_LIST_SECONDARY_LENGTH } from '@/constants/layout';
@@ -14,44 +14,39 @@ export default function withYearPicker(
 ) {
   const YearPicker = ({ type = CalendarType.Year, minDate, maxDate }: YearPickerProps) => {
     const { currentDate, setCurrentDate, handleChange } = useContext(DatePickerContext);
-    const calendarYears = useMemo(
-      () => getCalendarYears(currentDate),
-      [currentDate, minDate, maxDate]
-    );
+    const calendarYears = useMemo(() => getCalendarYears(currentDate), [currentDate]);
     const headerText = useMemo(
       () => getCalendarHeaderTextYearRange(calendarYears),
       [calendarYears]
     );
 
-    console.log(calendarYears);
-
-    function handlePreviousYearRange() {
+    const handlePreviousYearRange = useCallback(() => {
       const newDate = new Date(currentDate);
       newDate.setFullYear(currentDate.getFullYear() - CALENDAR_LIST_SECONDARY_LENGTH);
 
       setCurrentDate(newDate);
-    }
+    }, [currentDate]);
 
-    function handleNextYearRange() {
+    const handleNextYearRange = useCallback(() => {
       const newDate = new Date(currentDate);
       newDate.setFullYear(currentDate.getFullYear() + CALENDAR_LIST_SECONDARY_LENGTH);
 
       setCurrentDate(newDate);
-    }
+    }, [currentDate]);
 
-    const handleInput = (newDate: string) => {
+    const handleInput = useCallback((newDate: string) => {
       const formattedInput = checkYearPickerInput(newDate);
       const formattedInputAsDate = parseYearPickerInput(formattedInput);
 
       handleChange(formattedInputAsDate, formattedInput);
-    };
+    }, []);
 
-    function handleClick(newDate: string) {
+    const handleClick = useCallback((newDate: string) => {
       const formattedInput = new Date(newDate).getFullYear().toString();
       const formattedInputAsDate = parseYearPickerInput(formattedInput);
 
       handleChange(formattedInputAsDate, formattedInput);
-    }
+    }, []);
 
     return (
       <WrappedComponent

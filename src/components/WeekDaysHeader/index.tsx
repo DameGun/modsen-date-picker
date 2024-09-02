@@ -4,7 +4,7 @@ import { getWeekDays } from '@/utils/datepicker';
 import { StyledWeekDay, WeekDaysHeaderContainer } from './styled';
 
 export default function WeekDaysHeader({ weekStartDay }: WeekHeaderProps) {
-  const weekDaysValues = useMemo(() => getWeekDays(weekStartDay), [weekStartDay]);
+  const weekDaysValues = useMemo(() => getWeekDays(weekStartDay!), [weekStartDay]);
 
   return (
     <WeekDaysHeaderContainer>

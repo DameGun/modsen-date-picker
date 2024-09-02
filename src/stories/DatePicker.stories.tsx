@@ -2,11 +2,12 @@ import { Meta, StoryObj } from '@storybook/react';
 import { CalendarType, WeekStartDay } from '@/constants/calendar';
 import { CalendarCountries } from '@/constants/holidays';
 import DatePickerCreator from '@/services/datePickerCreator';
-import { DatePickerCreatorTemplate } from '@/utils/storybook';
+import { baseArgsType, DatePickerCreatorTemplate } from '@/utils/storybook';
 
 const meta = {
   component: DatePickerCreator,
   argTypes: {
+    ...baseArgsType,
     weekStartDay: {
       options: Object.values(WeekStartDay),
       control: 'select',
@@ -15,19 +16,13 @@ const meta = {
       options: Object.keys(CalendarCountries),
       control: 'select',
     },
-    minDate: {
-      control: 'date',
-    },
-    maxDate: {
-      control: 'date',
+    customHolidays: {
+      control: 'object',
     },
     chooseWeekends: {
       control: 'boolean',
     },
     withTodoList: {
-      control: 'boolean',
-    },
-    withRangePicker: {
       control: 'boolean',
     },
   },
@@ -45,8 +40,23 @@ export const Base: Story = {
   args: {
     type: CalendarType.Date,
     weekStartDay: WeekStartDay.Monday,
-    chooseWeekends: false,
+    chooseWeekends: true,
     withTodoList: false,
-    withRangePicker: true,
+    withRangePicker: false,
+    holidaysCountry: 'Bulgaria',
+
+    customHolidays: [
+      {
+        date: '08/01/2024',
+        name: 'My uncle birthday',
+      },
+      {
+        date: '08/02/2024',
+        name: 'My birthDay',
+      },
+    ],
+
+    minDate: 1723496400000,
+    maxDate: 1724360400000,
   },
 };

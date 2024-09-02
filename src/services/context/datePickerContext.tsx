@@ -18,18 +18,19 @@ export function DatePickerContextProvider({
   children,
   type,
   onChange,
+  initialDate,
 }: DatePickerContextProviderProps) {
-  const [currentDate, setCurrentDate] = useState<Date>(getInitialDateOnCalendarType(type));
+  const [currentDate, setCurrentDate] = useState<Date>(
+    getInitialDateOnCalendarType(type, initialDate)
+  );
   const [inputValue, setInputValue] = useState<string>('');
 
-  function handleDate(newDate: Date) {
+  const handleDate = (newDate: Date) => {
     if (!isNaN(newDate.getTime())) setCurrentDate(newDate);
     else setCurrentDate(new Date());
-  }
+  };
 
-  function handleInputValue(newDate: string) {
-    setInputValue(newDate);
-  }
+  const handleInputValue = (newDate: string) => setInputValue(newDate);
 
   const handleChange = (newDate: Date, formattedDate: string, userValue?: ResultDateType) => {
     handleInputValue(formattedDate);

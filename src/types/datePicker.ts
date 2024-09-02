@@ -2,9 +2,10 @@ import { CalendarType, WeekStartDay } from '@/constants/calendar';
 import { Calendar, CalendarLimitations } from './calendar';
 import { HolidaysProps } from './holidays';
 import { RangePickerProps } from './rangePicker';
+import { UserStylingProps } from './styling';
 
 interface WeekHeaderProps {
-  weekStartDay: WeekStartDay;
+  weekStartDay?: WeekStartDay;
 }
 
 interface DatePickerProps
@@ -12,7 +13,8 @@ interface DatePickerProps
     WeekHeaderProps,
     HolidaysProps,
     CalendarLimitations,
-    RangePickerProps {
+    RangePickerProps,
+    UserStylingProps {
   type: CalendarType.Date;
   chooseWeekends?: boolean;
   withTodoList?: boolean;

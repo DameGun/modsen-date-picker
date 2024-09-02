@@ -1,21 +1,11 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { CalendarType } from '@/constants/calendar';
 import DatePickerCreator from '@/services/datePickerCreator';
-import { DatePickerCreatorTemplate } from '@/utils/storybook';
+import { baseArgsType, DatePickerCreatorTemplate } from '@/utils/storybook';
 
 const meta = {
   component: DatePickerCreator,
-  argTypes: {
-    minDate: {
-      control: 'date',
-    },
-    maxDate: {
-      control: 'date',
-    },
-    withRangePicker: {
-      control: 'boolean',
-    },
-  },
+  argTypes: baseArgsType,
   parameters: {
     type: CalendarType.Month,
   },
@@ -31,6 +21,6 @@ export const Base: Story = {
     type: CalendarType.Month,
     minDate: undefined,
     maxDate: undefined,
-    withRangePicker: true,
+    withRangePicker: false,
   },
 };

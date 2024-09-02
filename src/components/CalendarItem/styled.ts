@@ -68,7 +68,7 @@ const StyledCalendarItem = styled(Button)<{
   ${(props) =>
     props.$isFocused &&
     `
-    opacity: ${props.$isFocused && !props.$isSelected ? 0.7 : 1};
+    opacity: ${props.$isFocused && !props.$isSelected ? props.theme.constants.opacity.lg : 1};
     background-color: ${props.theme.colors.blue};
     color: ${props.theme.colors.white};
 
@@ -84,7 +84,7 @@ const StyledCalendarItem = styled(Button)<{
     color: ${props.theme.colors.white};
 
     &:hover {
-      opacity: 0.7;
+      opacity: ${props.theme.constants.opacity.lg};
     }
   `};
 `;

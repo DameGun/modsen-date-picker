@@ -1,4 +1,4 @@
-import { ComponentType, useContext, useEffect, useMemo, useState } from 'react';
+import { ComponentType, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { CalendarCountries } from '@/constants/holidays';
 import type { CalendarLimitations, CalendarProps } from '@/types/calendar';
 import type { HolidayItem, HolidaysProps } from '@/types/holidays';
@@ -12,21 +12,25 @@ export default function withHolidays(
   const HolidaysComponent = ({
     holidaysCountry: country,
     items,
+    customHolidays,
     ...props
   }: CalendarProps & HolidaysProps & CalendarLimitations) => {
     const { currentDate } = useContext(DatePickerContext);
     const [holidays, setHolidays] = useState<HolidayItem[]>([]);
     const [currentYear, setCurrentYear] = useState<number>();
     const itemsWithHolidays = useMemo(
-      () => parseHolidaysInCalendarItems(holidays, items),
-      [currentYear, holidays, items]
+      () => parseHolidaysInCalendarItems(holidays.concat(...(customHolidays ?? [])), items),
+      [currentYear, holidays, items, customHolidays]
     );
 
-    async function getHolidays(country: keyof typeof CalendarCountries) {
-      const response = await fetchHolidaysByCountryCode(country, currentDate.getFullYear());
+    const getHolidays = useCallback(
+      async (country: keyof typeof CalendarCountries) => {
+        const response = await fetchHolidaysByCountryCode(country, currentDate.getFullYear());
 
-      if (response) setHolidays([...response]);
-    }
+        if (response) setHolidays([...response]);
+      },
+      [currentDate]
+    );
 
     useEffect(() => {
       const nextYear = currentDate.getFullYear();

@@ -9,31 +9,27 @@ export default function Input({ placeholderMask, onFocus, onInputChange }: Input
   const inputRef = useRef<HTMLInputElement>(null);
   const { inputValue, setCurrentDate } = useContext(DatePickerContext);
 
-  function setInputFocus() {
+  const setInputFocus = () => {
     const input = inputRef.current;
 
     if (input) {
       input.focus();
       onFocus();
     }
-  }
+  };
 
-  function handleClear(e: MouseEvent<HTMLImageElement>) {
+  const handleClear = (e: MouseEvent<HTMLButtonElement>) => {
     onInputChange('');
     setCurrentDate(new Date());
     e.stopPropagation();
-  }
+  };
 
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    onInputChange(e.target.value);
-  }
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => onInputChange(e.target.value);
 
-  function handleBlur(e: FocusEvent<HTMLInputElement>) {
-    e.preventDefault();
-  }
+  const handleBlur = (e: FocusEvent<HTMLInputElement>) => e.preventDefault();
 
   return (
-    <InputWrapper onClick={setInputFocus}>
+    <InputWrapper onClick={setInputFocus} data-testid='date-picker-input'>
       <IconButton icon={calendarIcon} />
       <StyledInput
         placeholder={placeholderMask}

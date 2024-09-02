@@ -1,14 +1,13 @@
 import { CalendarCountries } from '@/constants/holidays';
 
 type HolidayItem = {
-  date: string;
-  localName: string;
+  date: Date;
   name: string;
-  countryCode: string;
 };
 
 interface HolidaysProps {
   holidaysCountry?: keyof typeof CalendarCountries;
+  customHolidays?: HolidayItem[];
 }
 
 export type { HolidayItem, HolidaysProps };

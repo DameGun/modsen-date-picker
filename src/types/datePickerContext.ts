@@ -1,5 +1,3 @@
-import { ReactNode } from 'react';
-import { CalendarType } from '@/constants/calendar';
 import { Calendar, ResultDateType } from './calendar';
 
 interface DatePickerContextType {
@@ -10,9 +8,6 @@ interface DatePickerContextType {
   handleChange(newDate: Date, formattedInput: string, userValue?: ResultDateType): void;
 }
 
-interface DatePickerContextProviderProps extends Pick<Calendar, 'onChange'> {
-  type: CalendarType;
-  children?: ReactNode;
-}
+type DatePickerContextProviderProps = Calendar;
 
 export type { DatePickerContextProviderProps, DatePickerContextType };
